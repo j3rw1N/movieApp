@@ -1,12 +1,18 @@
 package com.stackroute.tmdb.model;
 
 import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "movies")
+@ConfigurationProperties(prefix = "movie1")
+@Component
+@Scope("prototype")
 public class Movie {
 
     @Id

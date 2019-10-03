@@ -15,13 +15,11 @@ public class PreFill1 implements ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired
     MovieServiceImpl movieService;
+    @Autowired
+    Movie movie;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        Movie movie = new Movie();
-        movie.setTitle("qqqqq");
-        movie.setId(1111111);
-        movie.setOverview("aaaaaaaa");
         movieService.saveMovie(movie);
     }
 }
