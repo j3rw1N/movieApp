@@ -1,5 +1,7 @@
 package com.stackroute.tmdb.service;
 
+import com.stackroute.tmdb.exceptions.MovieAlreadyExistException;
+import com.stackroute.tmdb.exceptions.MovieNotFoundException;
 import com.stackroute.tmdb.model.Movie;
 import com.stackroute.tmdb.repository.MovieRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,22 +25,25 @@ public class MovieServiceImpl {
         return movieRepo.findAll();
     }
 
-    public Movie findById(int movieId) throws EntityNotFoundException{
+    public Movie findById(int movieId) throws MovieNotFoundException{
         return movieRepo
                 .findById(movieId)
-                .orElseThrow(() -> new EntityNotFoundException("not found"));
+                .orElseThrow(() -> new MovieNotFoundException("Movie "+movieId+" not found"));
     }
 
     public boolean saveMovie(Movie movie) {
+        if(existsById(movie.getId())) {
+            throw new MovieAlreadyExistException("Movie id: "+movie.getId()+" already exist");
+        }
         movieRepo.save(movie);
         return true;
     }
 
-    public boolean deleteMovie(int movieId) throws EntityNotFoundException {
+    public boolean deleteMovie(int movieId) throws MovieNotFoundException {
         Movie movie =
                 movieRepo
                         .findById(movieId)
-                        .orElseThrow(() -> new EntityNotFoundException("not found"));
+                        .orElseThrow(() -> new MovieNotFoundException("Movie "+movieId+" not found"));
         movieRepo.delete(movie);
         return true;
     }

@@ -1,5 +1,7 @@
 package com.stackroute.tmdb.controller;
 
+import com.stackroute.tmdb.exceptions.MovieAlreadyExistException;
+import com.stackroute.tmdb.exceptions.MovieNotFoundException;
 import com.stackroute.tmdb.model.Movie;
 import com.stackroute.tmdb.service.MovieServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +33,10 @@ public class RestController {
     }
 
     @GetMapping("/movies/{id}")
-    public ResponseEntity getMovie(@PathVariable(value = "id") String id) {
-        try {
+    public ResponseEntity getMovie(@PathVariable(value = "id") String id) throws MovieNotFoundException {
             int movieId = Integer.parseInt(id);
             Movie movie = movieService.findById(movieId);
             return ResponseEntity.ok(movie);
-        } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie "+id+" not found", e);
-        }
     }
 
     @GetMapping("/moviesByName/{name}")
@@ -47,7 +45,7 @@ public class RestController {
     }
 
     @PostMapping("/movies")
-    public ResponseEntity createMovie(@Valid @RequestBody Movie movie) {
+    public ResponseEntity createMovie(@Valid @RequestBody Movie movie) throws MovieAlreadyExistException {
         movieService.saveMovie(movie);
         return ResponseEntity.status(HttpStatus.CREATED).body(movie);
     }
@@ -65,13 +63,13 @@ public class RestController {
     }
 
     @DeleteMapping("/movies/{id}")
-    public ResponseEntity deleteMovie(@PathVariable(value = "id") String id) {
+    public ResponseEntity deleteMovie(@PathVariable(value = "id") String id) throws MovieNotFoundException{
         try {
             int movieId = Integer.parseInt(id);
             movieService.deleteMovie(movieId);
             return new ResponseEntity(HttpStatus.NO_CONTENT);
-        } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie "+id+" not found", e);
+        } catch (MovieNotFoundException e) {
+            throw new MovieNotFoundException("Movie "+id+" not found");
         }
     }
 
