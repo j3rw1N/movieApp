@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class PreFill1 implements ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired
-    MovieServiceImpl movieService;
+    MovieService movieService;
     @Autowired
     Movie movie;
 

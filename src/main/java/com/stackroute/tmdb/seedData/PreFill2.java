@@ -1,6 +1,7 @@
 package com.stackroute.tmdb.seedData;
 
 import com.stackroute.tmdb.model.Movie;
+import com.stackroute.tmdb.service.MovieService;
 import com.stackroute.tmdb.service.MovieServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class PreFill2 implements CommandLineRunner {
 
     @Autowired
-    MovieServiceImpl movieService;
+    MovieService movieService;
 
     @Value("${movie2.title}")
     private String title;
@@ -28,7 +29,6 @@ public class PreFill2 implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Movie movie = new Movie();
         movie.setTitle(title);
-        System.out.println(env.getProperty("movie2.id"));
         movie.setId(1234);
         movieService.saveMovie(movie);
     }
