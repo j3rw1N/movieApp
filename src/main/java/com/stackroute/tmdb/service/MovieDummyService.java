@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @Qualifier("dummy")
-@Profile("tset")
+@Profile("dev")
 public class MovieDummyService implements MovieService {
     private MovieRepo movieRepo;
 
