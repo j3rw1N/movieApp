@@ -29,7 +29,7 @@ public class PreFill2 implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Movie movie = new Movie();
         movie.setTitle(title);
-        movie.setId(1234);
+        movie.setId(Integer.parseInt(env.getProperty("movie2.id")));
         movieService.saveMovie(movie);
     }
 }

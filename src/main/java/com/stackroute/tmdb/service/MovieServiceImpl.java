@@ -6,6 +6,7 @@ import com.stackroute.tmdb.model.Movie;
 import com.stackroute.tmdb.repository.MovieRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Service
 @Primary
+@Profile("prod")
 public class MovieServiceImpl implements MovieService{
     private MovieRepo movieRepo;
 

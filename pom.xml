@@ -28,6 +28,24 @@
 	<name>tmdb</name>
 	<description>Demo project for Spring Boot</description>
 
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<spring.profiles.active>tset</spring.profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<spring.profiles.active>prod</spring.profiles.active>
+			</properties>
+		</profile>
+	</profiles>
+
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-boot.repackage.skip>true</spring-boot.repackage.skip>
@@ -153,6 +171,12 @@
 				</executions>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 	</build>
 
 	<distributionManagement>
