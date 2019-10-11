@@ -4,6 +4,7 @@ import com.stackroute.tmdb.exceptions.MovieAlreadyExistException;
 import com.stackroute.tmdb.exceptions.MovieNotFoundException;
 import com.stackroute.tmdb.model.Movie;
 import com.stackroute.tmdb.service.MovieService;
+import com.stackroute.tmdb.service.MovieServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

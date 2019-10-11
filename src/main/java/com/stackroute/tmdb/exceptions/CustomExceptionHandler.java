@@ -1,6 +1,5 @@
 package com.stackroute.tmdb.exceptions;
 
-import org.hibernate.hql.internal.ast.ErrorReporter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
