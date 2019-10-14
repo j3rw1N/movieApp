@@ -35,29 +35,28 @@ public class MovieServiceImpl implements MovieService{
                 .orElseThrow(() -> new MovieNotFoundException("Movie "+movieId+" not found"));
     }
 
-    public boolean saveMovie(Movie movie) {
+    public Movie saveMovie(Movie movie) {
         if(existsById(movie.getId())) {
             throw new MovieAlreadyExistException("Movie id: "+movie.getId()+" already exist");
         }
         movieRepo.save(movie);
-        return true;
+        return movie;
     }
 
-    public boolean deleteMovie(int movieId) throws MovieNotFoundException {
+    public Movie deleteMovie(int movieId) throws MovieNotFoundException {
         Movie movie =
                 movieRepo
                         .findById(movieId)
                         .orElseThrow(() -> new MovieNotFoundException("Movie "+movieId+" not found"));
         movieRepo.delete(movie);
-        return true;
+        return movie;
     }
 
     public boolean existsById(int id) {
         return movieRepo.existsById(id);
     }
 
-    public List<Movie> getMovieByName(String name) {
-        //return movieRepo.movieByName(name);
+    public List<Movie> getMoviesByName(String name) {
         return movieRepo.findByTitleIgnoreCaseContaining(name);
     }
 

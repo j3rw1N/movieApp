@@ -7,8 +7,8 @@ import java.util.List;
 public interface MovieService {
     List<Movie> findAll();
     Movie findById(int id);
-    boolean saveMovie(Movie movie);
-    boolean deleteMovie(int id);
+    Movie saveMovie(Movie movie);
+    Movie deleteMovie(int id);
     boolean existsById(int id);
-    List<Movie> getMovieByName(String name);
+    List<Movie> getMoviesByName(String name);
 }

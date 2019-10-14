@@ -27,7 +27,7 @@ public class RestController {
     @GetMapping("/movies")
     public ResponseEntity getMovies(@RequestParam(name="name", defaultValue = "") String movieName) {
         if(!movieName.equals("")) {
-            return ResponseEntity.ok(movieService.getMovieByName(movieName));
+            return ResponseEntity.ok(movieService.getMoviesByName(movieName));
         }
         return ResponseEntity.ok(movieService.findAll());
     }
@@ -41,7 +41,7 @@ public class RestController {
 
     @GetMapping("/moviesByName/{name}")
     public ResponseEntity getMovieByName(@PathVariable(value = "name") String name) {
-        return ResponseEntity.ok(movieService.getMovieByName(name));
+        return ResponseEntity.ok(movieService.getMoviesByName(name));
     }
 
     @PostMapping("/movies")
@@ -66,11 +66,10 @@ public class RestController {
     public ResponseEntity deleteMovie(@PathVariable(value = "id") String id) throws MovieNotFoundException{
         try {
             int movieId = Integer.parseInt(id);
-            movieService.deleteMovie(movieId);
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            Movie movie = movieService.deleteMovie(movieId);
+            return ResponseEntity.status(HttpStatus.OK).body(movie);
         } catch (MovieNotFoundException e) {
             throw new MovieNotFoundException("Movie "+id+" not found");
         }
     }
-
 }
